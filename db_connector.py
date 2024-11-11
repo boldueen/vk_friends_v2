@@ -3,8 +3,8 @@ from pymongo.collection import Collection
 
 
 class MongoCustomClient:
-    def __init__(self):
-        self.client: MongoClient = MongoClient("mongodb://localhost:27017")
+    def __init__(self, mongo_url: str):
+        self.client: MongoClient = MongoClient(mongo_url)
         self.db = self.client["mydatabase"]
         self.collection: Collection = self.db["vk_users"]
 

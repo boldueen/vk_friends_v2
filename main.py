@@ -31,8 +31,8 @@ first_level_users = [
 
 def main():
     config = Config()
-    mongo_client = MongoCustomClient(config.MONGO_URL)
-    vk_client = VkHTTPClient(config.VK_ACCESS_TOKEN)
+    mongo_client = MongoCustomClient(config.mongo_url)
+    vk_client = VkHTTPClient(config.access_token)
     vk_parser = VkParser(vk_client, mongo_client)
 
     for user in first_level_users:
