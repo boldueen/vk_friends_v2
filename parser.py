@@ -52,12 +52,10 @@ class VkParser:
         for _id in leaf_friends_ids:
             logger.info(f"parsing {_id=}")
             user = VkUser(id=_id)
-            logger.error(f"{user=}")
             friends = self.parse_friends(user.id)
             if len(friends) == 0:
                 logger.error(f"no friends for {user.id}")
                 continue
-            logger.warning(f"{friends=}")
             user.friend_ids = [friend.id for friend in friends]
             self._save_user(user, depth=3)
 
