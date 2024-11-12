@@ -32,7 +32,7 @@ class VkHTTPClient:
             parent_friend_id=None,
         )
 
-    def get_friends(self, user_id: str) -> list[VkUser]:
+    def get_friends(self, user_id: str, limit: int | None = 100) -> list[VkUser]:
         try:
             response = self.api.friends.get(
                 user_id=user_id,
@@ -43,7 +43,7 @@ class VkHTTPClient:
             logger.info(f"Невозможно спарсить друзей для {user_id}: {e}")
             return []
 
-        friends_list = response.get("items", [])[:100]  # FIXME выставить лимит в 100
+        friends_list = response.get("items", [])[:limit]
 
         return [
             VkUser(
