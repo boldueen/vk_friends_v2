@@ -5,27 +5,15 @@ from vk_client import VkHTTPClient
 from parser import VkParser
 
 
-first_level_users = [
-    VkUser(
-        id="396854328",
-        name="Денис Яценко",
-        parent_friend_id=None,
-    ),
-    VkUser(
-        id="151413977",
-        name="Владислав Утц",
-        parent_friend_id=None,
-    ),
-    VkUser(
-        id="144399122",
-        name="Александр Чекунков",
-        parent_friend_id=None,
-    ),
-    VkUser(
-        id="270780454",
-        name="Иван Никонов",
-        parent_friend_id=None,
-    ),
+first_level_user_ids = [
+    "396854328",
+    "151413977",
+    "144399122",
+    "270780454",
+]
+
+first_level_user_ids_tmp = [
+    "396854328",
 ]
 
 
@@ -35,8 +23,11 @@ def main():
     vk_client = VkHTTPClient(config.access_token)
     vk_parser = VkParser(vk_client, mongo_client)
 
-    for user in first_level_users:
-        vk_parser.parse_friends_in_depth(user)
+    for user_id in first_level_user_ids_tmp:
+        user = vk_parser.get_user_info(user_id)
+        if user is None:
+            continue
+        vk_parser.parse_friends_in_depth(user, depth=3)
 
 
 if __name__ == "__main__":

@@ -16,3 +16,6 @@ class MongoCustomClient:
 
     def find_one(self, query: dict) -> dict | None:
         return self.collection.find_one(query)
+
+    def upsert(self, query: dict, data: dict):
+        self.collection.update_one(query, {"$set": data}, upsert=True)
