@@ -2,6 +2,8 @@ import time
 from loguru import logger
 import networkx as nx
 import matplotlib.pyplot as plt
+from networkx import betweenness_centrality
+from networkx import eigenvector_centrality
 
 
 def build_graph(data: list[dict], max_depth: int | None = 4):
@@ -37,6 +39,18 @@ def build_graph(data: list[dict], max_depth: int | None = 4):
                             and mutual_friend_id in G[friend_id]
                         ):
                             G.add_edge(friend_id, mutual_friend_id)
+
+    # расчет центральности по постредничеству
+    betweenness = betweenness_centrality(G=G)
+
+    # Расчет Близости собвсвенного вектора
+    eigenvector = eigenvector_centrality(G=G)
+
+    logger.success(f"{betweenness=}")
+    logger.success(f"{eigenvector=}")
+
+    logger.success(f"Количество вершин в графе: { G.number_of_nodes()}")
+    logger.success(f"Количество рёбер в графе: { G.number_of_edges()}")
 
     plt.figure(figsize=(100, 100))
     nx.draw(
