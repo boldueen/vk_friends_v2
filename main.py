@@ -1,4 +1,3 @@
-from loguru import logger
 from config import Config
 from db_connector import MongoCustomClient
 from vk_client import VkHTTPClient
@@ -59,8 +58,9 @@ def main():
             continue
         vk_parser.parse_friends_in_depth(user, depth=4)
 
+    vk_parser.parse_leaf_friends()
+
     data = mongo_client.select_all()
-    logger.info(f"got {len(data)} users")
     build_graph(data)
 
 

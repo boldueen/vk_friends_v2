@@ -1,4 +1,3 @@
-import time
 from loguru import logger
 import networkx as nx
 import matplotlib.pyplot as plt
@@ -55,11 +54,9 @@ def build_graph(data: list[dict], max_depth: int | None = 4):
     plt.figure(figsize=(100, 100))
     nx.draw(
         G,
-        with_labels=True,
-        node_size=50,
-        node_color="lightblue",
+        with_labels=False,
+        node_color="black",
         font_size=8,
-        # font_weight="bold",
     )
-    plt.savefig(f"graph_{int(time.time())}.png", format="png")
+    plt.savefig("graph.png", format="png")
     plt.close()
